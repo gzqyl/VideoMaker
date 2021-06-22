@@ -108,15 +108,16 @@ public class VideoGenerator: NSObject {
           
           /// create the basic video settings
 		  
+		  var videoSettings: [String : AnyObject]
+		  
 		  if #available(iOS 11.0, *) {
-	          let videoSettings: [String : AnyObject] = [
+	          videoSettings  = [
 	            AVVideoCodecKey  : AVVideoCodecType.h264 as AnyObject,
 	            AVVideoWidthKey  : outputSize.width as AnyObject,
 	            AVVideoHeightKey : outputSize.height as AnyObject,
 	          ]
 		  } else {
-	          let videoSettings: [String : AnyObject] = [
-	            AVVideoCodecKey  : AVVideoCodecType.h265 as AnyObject,
+	          videoSettings = [
 	            AVVideoWidthKey  : outputSize.width as AnyObject,
 	            AVVideoHeightKey : outputSize.height as AnyObject,
 	          ]
@@ -870,12 +871,23 @@ public class VideoGenerator: NSObject {
                 let videoCompositionProps = [AVVideoAverageBitRateKey: assetVideoTrack.estimatedDataRate]
                 
                 /// create the basic video settings
-                let videoSettings: [String : Any] = [
-                    AVVideoCodecKey  : AVVideoCodecType.h264,
-                  AVVideoWidthKey  : videoSize.width,
-                  AVVideoHeightKey : videoSize.height,
-                  AVVideoCompressionPropertiesKey: videoCompositionProps
-                ]
+                
+				var videoSettings: [String : Any]
+				
+	  		    if #available(iOS 11.0, *) {
+	                videoSettings = [
+	                  AVVideoCodecKey  : AVVideoCodecType.h264,
+	                  AVVideoWidthKey  : videoSize.width,
+	                  AVVideoHeightKey : videoSize.height,
+	                  AVVideoCompressionPropertiesKey: videoCompositionProps
+	                ]
+	  		    } else {
+	                videoSettings = [
+	                  AVVideoWidthKey  : videoSize.width,
+	                  AVVideoHeightKey : videoSize.height,
+	                  AVVideoCompressionPropertiesKey: videoCompositionProps
+	                ]
+	  		    }
                 
                 let readerOutput = AVAssetReaderTrackOutput(track: assetVideoTrack, outputSettings: sourceBufferAttributes)
                 readerOutput.supportsRandomAccess = true
