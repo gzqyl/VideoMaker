@@ -1,0 +1,16 @@
+PODS:
+  - SwiftVideoGenerator (1.3.2)
+
+DEPENDENCIES:
+  - SwiftVideoGenerator (from `../`)
+
+EXTERNAL SOURCES:
+  SwiftVideoGenerator:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SwiftVideoGenerator: 58e9ee9331b1718e16de5172905645a9879fb6a9
+
+PODFILE CHECKSUM: 8154bced788bbb9c42d33c4d6dc66a975b715491
+
+COCOAPODS: 1.8.4
